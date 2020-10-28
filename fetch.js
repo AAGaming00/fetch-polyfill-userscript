@@ -511,14 +511,14 @@ self.GM_fetch = function(input, init) {
       xhr.abort()
     }
 
-    xhr.onload = function() {
+    xhr.onload = function(resp) {
       var options = {
-        status: xhr.status,
-        statusText: xhr.statusText,
-        headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+        status: resp.status,
+        statusText: resp.statusText,
+        headers: parseHeaders(resp.responseHeaders || '')
       }
-      options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
-      var body = 'response' in xhr ? xhr.response : xhr.responseText
+      options.url = 'responseURL' in resp ? resp.responseURL : options.headers.get('X-Request-URL')
+      var body = xhr.responseText
       setTimeout(function() {
         resolve(new Response(body, options))
       }, 0)
