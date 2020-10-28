@@ -518,7 +518,7 @@ self.GM_fetch = function(input, init) {
         headers: parseHeaders(resp.responseHeaders || '')
       }
       options.url = 'responseURL' in resp ? resp.responseURL : options.headers.get('X-Request-URL')
-      var body = xhr.responseText
+      var body = resp.responseText
       setTimeout(function() {
         resolve(new Response(body, options))
       }, 0)
